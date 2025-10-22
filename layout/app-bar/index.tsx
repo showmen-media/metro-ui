@@ -16,27 +16,11 @@ export default function AppBar(props) {
 		<div
 			className="page-container"
 		>
-			<div className="flex -mx-1">
-				<div className="flex-1 flex">
-					<button
-						className="flex-1 relative text-xs text-left"
-					>
-						Previous
-					</button>
-				</div>
-				<div className="flex-3 flex justify-center">
-					<AppBarButton icon={EllipsisHorizontalIcon} text="Menu" />
-					<AppBarButton icon={EllipsisHorizontalIcon} text="Menu" />
-					<AppBarButton icon={EllipsisHorizontalIcon} text="Menu" />
-					<AppBarButton icon={EllipsisHorizontalIcon} text="Menu" />
-				</div>
-				<div className="flex-1 flex">
-					<button
-						className="flex-1 relative text-xs text-right"
-					>
-						Previous
-					</button>
-				</div>
+			<div className="flex justify-center">
+				<AppBarButton icon={EllipsisHorizontalIcon} text="Menu" />
+				<AppBarButton icon={EllipsisHorizontalIcon} text="Menu" />
+				<AppBarButton icon={EllipsisHorizontalIcon} text="Menu" />
+				<AppBarButton icon={EllipsisHorizontalIcon} text="Menu" />
 			</div>
 			<AppBarMenu />
 		</div>
