@@ -1,29 +1,48 @@
 'use client';
 
+import { useEffect } from "react";
+import { BehaviorSubject } from "rxjs";
 import useEmblaCarousel from "embla-carousel-react";
 
 import { useMetroInternalContext } from "../context";
-import { useEffect } from "react";
 
 
 export default function Panorama({ title, children }) {
 
-		const [emblaRef] = useEmblaCarousel();
+		const [emblaRef, emblaApi] = useEmblaCarousel({ inViewThreshold: 1 });
 
-		const context = useMetroInternalContext();
+		const metro = useMetroInternalContext();
 
 		let effectRan;
 		useEffect(() => {
+			if (!emblaApi) return;
+			const { slidesInView, scrollTo } = emblaApi;
+			const visibleIndices$ = new BehaviorSubject<number[] | null>(slidesInView());
+			emblaApi.on('scroll', () => visibleIndices$.value && visibleIndices$.next(null));
+			emblaApi.on('settle', () => visibleIndices$.next(slidesInView()));
+			const getVisibleIndeces$ = () => visibleIndices$.asObservable();
+
 			if (!effectRan) {
-				if (context.publicContext.panoramaItems)
+				if (metro.publicContext.panorama)
 					throw new Error("You cannot use multiple panoramas in the same page!");
 				effectRan = true;
 			}
 
-			context.setPanoramaItems(children);
+			const headers = children.map(child => {
+				child = child.props?.header;
+				if (!child) throw new Error(
+					"Immediate children of `Panorama` must be `PanoramaItem`s with `header` set."
+				);
+				return child;
+			});
 
-			return () => context.setPanoramaItems(null);
-		}, [children]);
+			metro.setPanorama({
+				headers, getVisibleIndeces$, scrollTo
+			});
+
+			return () => metro.setPanorama(null);
+		}, [emblaApi, children]);
+
 
 		return (
 			<div>

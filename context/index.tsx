@@ -1,21 +1,23 @@
 'use client';
 
-import { createContext, useContext, useState } from "react";
+import { Context, createContext, useContext, useState } from "react";
+
+import { InternalContext, PublicContext } from "./types";
 
 
-const MetroContext = createContext<null | {}>(null);
-const MetroInternalContext = createContext<null | {}>(null);
+const MetroContext = createContext<null | PublicContext>(null);
+const MetroInternalContext = createContext<null | InternalContext>(null);
 
 export default function MetroContextProvider({ children }) {
 
 	const stateItems = {
-		panoramaItems: useState(null)
+		panorama: useState(null)
 	};
 
-	let publicContext = {};
+	let publicContext = {} as PublicContext;
 	let internalContext = {
 		publicContext
-	};
+	} as InternalContext;
 
 	Object.keys(stateItems).forEach(
 		key => {
@@ -35,8 +37,8 @@ export default function MetroContextProvider({ children }) {
 	);
 }
 
-const createNonFalseyContextHook = (context) => () => {
-	const result = useContext(context);
+const createNonFalseyContextHook = <T,>(context: Context<T>) => () => {
+	const result = useContext(context) as T;
 	if (!result) throw new Error(`Context unavailable`);
 	return result;
 }
