@@ -9,7 +9,7 @@ import { useMetroInternalContext } from "../context";
 
 export default function Panorama({ title, children }) {
 
-		const [emblaRef, emblaApi] = useEmblaCarousel({ inViewThreshold: 1 });
+		const [emblaRef, emblaApi] = useEmblaCarousel({ inViewThreshold: .9 });
 
 		const metro = useMetroInternalContext();
 
