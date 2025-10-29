@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BehaviorSubject } from "rxjs";
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -10,10 +10,10 @@ import { useMetroInternalContext } from "../context";
 export default function Panorama({ title, children }) {
 
 		const [emblaRef, emblaApi] = useEmblaCarousel({ inViewThreshold: .9 });
+		const [effectRan, setEffectRan] = useState(false);
 
 		const metro = useMetroInternalContext();
 
-		let effectRan;
 		useEffect(() => {
 			if (!emblaApi) return;
 			const { slidesInView, scrollTo } = emblaApi;
@@ -25,7 +25,7 @@ export default function Panorama({ title, children }) {
 			if (!effectRan) {
 				if (metro.publicContext.panorama)
 					throw new Error("You cannot use multiple panoramas in the same page!");
-				effectRan = true;
+				setEffectRan(true);
 			}
 
 			const headers = children.map(child => {
