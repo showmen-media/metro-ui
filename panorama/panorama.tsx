@@ -28,7 +28,7 @@ export default function Panorama({ title, children }) {
 				setEffectRan(true);
 			}
 
-			const headers = children.map(child => {
+			const headers = children.filter(Boolean).map(child => {
 				child = child.props?.header;
 				if (!child) throw new Error(
 					"Immediate children of `Panorama` must be `PanoramaItem`s with `header` set."
