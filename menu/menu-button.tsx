@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
+
 
 function addClasses(obj, classes) {
 	obj.className = [
@@ -11,7 +13,7 @@ function addClasses(obj, classes) {
 }
 
 export default function MenuButton(
-	{ icon: Icon, href, children, ...props }: MenuButtonProps
+	{ icon: Icon, href, attn, children, ...props }: MenuButtonProps
 ) {
 	addClasses(props, "flex items-center gap-3 p-2 -mx-2");
 
@@ -30,8 +32,15 @@ export default function MenuButton(
 	return <Container {...props}>
 		{
 			Icon
-			? <span className="p-2 bg-indigo-600 text-white">
+			? <span className="p-2 bg-indigo-600 text-white relative">
 				<Icon className="size-6" />
+				{
+					attn
+					&& <ExclamationCircleIcon
+						className="size-5 absolute"
+						style={{ top: -5, right: -8 }}
+					/>
+				}
 			</span>
 			: null
 		}
@@ -44,4 +53,5 @@ export default function MenuButton(
 type MenuButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	icon?: React.FunctionComponent<React.HTMLAttributes<HTMLElement>>;
 	href?: string;
+	attn?: boolean;
 }
