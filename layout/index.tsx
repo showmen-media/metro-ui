@@ -9,7 +9,7 @@ export function MetroLayout({ children }) {
 		<MetroContextProvider>
 			<div>
 				{children}
-				<AppBar />
+				{/* <AppBar /> */}
 			</div>
 		</MetroContextProvider>
 	);
