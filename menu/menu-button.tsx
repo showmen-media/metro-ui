@@ -15,7 +15,7 @@ function addClasses(obj, classes) {
 export default function MenuButton(
 	{ icon: Icon, href, attn, children, ...props }: MenuButtonProps
 ) {
-	addClasses(props, "flex items-center gap-3 p-2 -mx-2");
+	addClasses(props, "flex items-center gap-3 p-2 -mx-2 text-left");
 
 	const disabled = props.disabled || !(href || props.onClick);
 
