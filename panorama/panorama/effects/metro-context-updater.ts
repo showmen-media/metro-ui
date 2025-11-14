@@ -2,7 +2,7 @@ import React from "react";
 import { BehaviorSubject, map, Observable } from "rxjs";
 
 import { nonNullObservable } from "lib/core/common/helpers";
-import { useMetroInternalContext } from "app/_components/metro/context";
+import { useMetroInternalContext } from "metro-ui/context";
 
 
 export const useMetroContextUpdater = ({ title, slider, children }) => {

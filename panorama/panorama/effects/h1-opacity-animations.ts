@@ -1,4 +1,4 @@
-import { useMetroContext } from "app/_components/metro/context";
+import { useMetroContext } from "metro-ui/context";
 import React from "react";
 
 export const useH1OpacityAnimations = ({ h1Ref }) => {
