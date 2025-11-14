@@ -1,7 +1,6 @@
 import React from "react";
-import { BehaviorSubject, map, Observable } from "rxjs";
+import { BehaviorSubject, filter, map, Observable } from "rxjs";
 
-import { nonNullObservable } from "lib/core/common/helpers";
 import { useMetroInternalContext } from "metro-ui/context";
 
 
@@ -67,7 +66,7 @@ export const useMetroContextUpdater = ({ title, slider, children }) => {
 
 			metroInternal.setPanorama({
 				title, headers, slider,
-				getVerticalScroll$: () => nonNullObservable(scrollFrames),
+				getVerticalScroll$: () => scrollFrames.pipe(filter((data) => data !== null)),
 				getIsScrolling$: () => sliderIsScrolling.asObservable(),
 				getVisibleIndeces$: () => visibleIndices$
 			});
